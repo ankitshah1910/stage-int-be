@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
+    "target": "es6",
     "module": "commonjs",
     "rootDir": "src",
     "outDir": "dist",
@@ -18,7 +18,8 @@
     "noFallthroughCasesInSwitch": true    
   },
   "include": [
-    "src/**/*"                           
+    "src/**/*", // Make sure this includes your type definitions
+    "src/types/**/*.d.ts" // Include the types directory
   ],
   "exclude": [
     "node_modules",                       
