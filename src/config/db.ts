@@ -11,10 +11,7 @@ const mongoURI = `mongodb+srv://${config.username}:${config.password}@${config.h
 const dbConnection = {
   authenticate: () => {
     return mongoose
-      .connect(mongoURI, {
-        useNewUrlParser: config.useNewUrlParser,
-        useUnifiedTopology: config.useUnifiedTopology,
-      })
+      .connect(mongoURI)
       .then(() => {
         console.log('Connection to MongoDB has been established successfully');
       })

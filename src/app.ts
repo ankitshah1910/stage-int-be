@@ -15,4 +15,9 @@ connectDB.authenticate();
 
 app.use('/api', routes);
 
+// Handle 404
+app.use((_req, res) => {
+  res.status(404).json({ success: false, message: 'Not Found' });
+});
+
 export default app;
