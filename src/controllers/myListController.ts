@@ -90,15 +90,13 @@ export const listItems = async ({ userId, page, limit }: ListItemsParams) => {
   const totalPages = Math.ceil(totalItems / limit);
 
   return {
-    movies,
-    tvShows,
-    pagination: {
-      totalItems,
-      totalPages,
-      currentPage: page,
-      hasNextPage: startIndex + limit < totalItems,
-      hasPreviousPage: page > 1,
-    },
+    data: [
+      ...movies,
+      ...tvShows
+    ],
+    totalItems,
+    totalPages,
+    currentPage: page,
   };
 };
 

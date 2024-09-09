@@ -15,6 +15,7 @@ interface MyListItem {
 }
 
 interface UserDocument extends Document {
+  name:string;
   username: string;
   password: string;
   preferences: {
@@ -26,7 +27,8 @@ interface UserDocument extends Document {
 }
 
 const userSchema = new Schema<UserDocument>({
-  username: { type: String, required: true },
+  username: { type: String, required: true, unique: true },
+  name: { type: String, required: true },
   password: {
     type: String,
     required: true,

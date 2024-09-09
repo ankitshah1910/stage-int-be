@@ -11,7 +11,7 @@ import { IGetUserAuthInfoRequest } from '../types/express';
 const router = express.Router();
 
 // Add an item to the list
-router.post('/my-list', authMiddleware, async (req: IGetUserAuthInfoRequest, res: Response) => {
+router.post('/add', authMiddleware, async (req: IGetUserAuthInfoRequest, res: Response) => {
     try {
         const userId = req.user?.id; // Get the user ID from the middleware
         const { itemId, type } = req.body;
@@ -45,7 +45,7 @@ router.get('/my-list', authMiddleware, async (req: IGetUserAuthInfoRequest, res:
 });
 
 // Remove an item from the list
-router.delete('/my-list/:contentId', authMiddleware, async (req: IGetUserAuthInfoRequest, res: Response) => {
+router.delete('/remove/:contentId', authMiddleware, async (req: IGetUserAuthInfoRequest, res: Response) => {
     try {
         const userId = req.user?.id; // Get the user ID from the middleware
         const { contentId } = req.params;

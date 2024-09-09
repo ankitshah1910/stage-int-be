@@ -7,13 +7,17 @@ const SECRET_KEY = process.env.JWT_SECRET ?? '';
 
 // Register a new user
 export const register = async (req: Request, res: Response) => {
-    const { username, password } = req.body;
+    const { username, password, name } = req.body;
     try {
-        const hashedPassword = await bcrypt.hash(password, 10); // Hash the password
-        const newUser = new User({ username, password: hashedPassword });
+        const user = await User.findOne({ username });
+        if (user) {
+            return res.status(401).json({ message: 'Username exists' });
+        }
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const newUser = new User({ username, password: hashedPassword, name });
         await newUser.save();
 
-        return res.status(201).json({ message: 'User registered successfully' });
+        return res.status(200).json({ message: 'User registered successfully' });
     } catch (error) {
         return res.status(400).json({ message: 'Error registering user', error });
     }
@@ -35,9 +39,9 @@ export const login = async (req: Request, res: Response) => {
         }
 
         // Create and assign a token
-        const token = jwt.sign({ id: user.id }, SECRET_KEY, { expiresIn: '1h' });
+        const token = jwt.sign({ id: user.id, name: user.name }, SECRET_KEY, { expiresIn: '1h' });
 
-        return res.status(200).json({ token });
+        return res.status(200).json({ token, myList: user.myList.map(item => item.itemId) });
     } catch (error) {
         return res.status(400).json({ message: 'Error logging in', error });
     }
