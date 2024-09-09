@@ -4,7 +4,7 @@
   "description": "Initialize Project",
   "main": "index.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "node ./dist/server.js",
     "dev": "ts-node-dev --respawn src/server.ts",
     "build": "npm install && tsc",
     "test": "jest"
